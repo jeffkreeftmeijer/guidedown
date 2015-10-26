@@ -4,6 +4,6 @@ class Guidedown
   end
 
   def to_s
-    "```\n#{@input.sub('    ', '')}\n```"
+    "```\n#{@input.gsub('    ', '')}\n```"
   end
 end

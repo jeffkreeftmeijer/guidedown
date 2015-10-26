@@ -14,4 +14,9 @@ describe Guidedown do
     assert_equal "Paragraph.\n\n```\nfoo\n```",
       Guidedown.new("Paragraph.\n\n    foo\n").to_s
   end
+
+  it "does not remove more than four spaces from code blocks" do
+    assert_equal "```\n    foo\n```",
+      Guidedown.new("        foo\n").to_s
+  end
 end

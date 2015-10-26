@@ -21,15 +21,19 @@ class Guidedown
 
     def name
       @data.lines.first.match(/# (.+)/)
-      $1
+      $1.to_s
     end
 
     def to_s
-      "```\n#{@data.gsub(/^ {4}/, '')}```"
+      if language_name
+        "``` #{language_name}\n#{@data.gsub(/^ {4}/, '')}```"
+      else
+        "```\n#{@data.gsub(/^ {4}/, '')}```"
+      end
     end
 
     def language_name
-      language.name.downcase
+      language.name.downcase if language
     end
   end
 end

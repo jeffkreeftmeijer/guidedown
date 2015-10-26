@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require_relative 'guidedown'
+require_relative 'test_helper'
 
 describe Guidedown::Codeblock do
   it "converts indented codeblocks to fenced ones" do

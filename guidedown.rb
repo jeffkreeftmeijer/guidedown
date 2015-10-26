@@ -26,10 +26,14 @@ class Guidedown
 
     def to_s
       if language_name
-        "``` #{language_name}\n#{@data.gsub(/^ {4}/, '')}```"
+        "``` #{language_name}\n#{unindented_data}```"
       else
-        "```\n#{@data.gsub(/^ {4}/, '')}```"
+        "```\n#{unindented_data}```"
       end
+    end
+
+    def unindented_data
+      @data.gsub(/^ {4}/, '')
     end
 
     def language_name

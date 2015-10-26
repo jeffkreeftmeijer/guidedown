@@ -4,6 +4,8 @@ class Guidedown
   end
 
   def to_s
-    "```\n#{@input.gsub('    ', '')}```"
+    @input.gsub(/ {4,}.+(\n+ {4,}.+)*\n/).each do |match|
+      "```\n#{match.gsub(/ {4}/, '')}```"
+    end
   end
 end

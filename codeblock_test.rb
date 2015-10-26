@@ -11,4 +11,9 @@ describe Guidedown::Codeblock do
     codeblock = Guidedown::Codeblock.new("    # example.rb\n    def foo\n      puts 'bar'\n    end\n")
     assert_equal "ruby", codeblock.language_name
   end
+
+  it "takes its info string from the language name" do
+    codeblock = Guidedown::Codeblock.new("    # example.rb")
+    assert_equal "ruby", codeblock.info_string
+  end
 end

@@ -25,8 +25,8 @@ class Guidedown
     end
 
     def to_s
-      if language_name
-        "``` #{language_name}\n#{unindented_data}```"
+      if info_string
+        "``` #{info_string}\n#{unindented_data}```"
       else
         "```\n#{unindented_data}```"
       end
@@ -38,6 +38,10 @@ class Guidedown
 
     def language_name
       language.name.downcase if language
+    end
+
+    def info_string
+      language_name
     end
   end
 end

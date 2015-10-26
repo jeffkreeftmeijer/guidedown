@@ -20,8 +20,7 @@ class Guidedown
     end
 
     def name
-      @data.lines.first.match(/# (.+)/)
-      $1.to_s
+      comment_line_contents.to_s
     end
 
     def to_s
@@ -36,12 +35,22 @@ class Guidedown
       @data.gsub(/^ {4}/, '')
     end
 
+    def comment_line
+      @data.lines.first.match(/# (.+)/)
+    end
+
+    def comment_line_contents
+      if comment_line
+        comment_line.to_s.sub(/^# /, '')
+      end
+    end
+
     def language_name
       language.name.downcase if language
     end
 
     def info_string
-      language_name
+      language_name || comment_line_contents
     end
   end
 end

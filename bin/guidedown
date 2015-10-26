@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require_relative '../guidedown'
+
+input = File.read(ARGV.first)
+puts Guidedown.new(input).to_s

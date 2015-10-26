@@ -1,3 +1,5 @@
+require 'linguist'
+
 class Guidedown
   def initialize(input)
     @input = input
@@ -10,12 +12,24 @@ class Guidedown
   end
 
   class Codeblock
-    def initialize(input)
-      @input = input
+    include Linguist::BlobHelper
+    attr_reader :data
+
+    def initialize(data)
+      @data = data
+    end
+
+    def name
+      @data.lines.first.match(/# (.+)/)
+      $1
     end
 
     def to_s
-      "```\n#{@input.gsub(/^ {4}/, '')}```"
+      "```\n#{@data.gsub(/^ {4}/, '')}```"
+    end
+
+    def language_name
+      language.name.downcase
     end
   end
 end

@@ -36,7 +36,7 @@ class Guidedown
     end
 
     def comment_line
-      @data.lines.first.match(/# (.+)/)
+      lines.first.match(/# (.+)/)
     end
 
     def comment_line_contents
@@ -51,6 +51,12 @@ class Guidedown
 
     def info_string
       language_name || comment_line_contents
+    end
+
+    private
+
+    def lines
+      @data.lines
     end
   end
 end

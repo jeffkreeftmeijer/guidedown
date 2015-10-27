@@ -42,11 +42,7 @@ class Guidedown
 
     def unindented_data
       if file
-        if line_number
-          data = [file.lines[line_number]]
-        else
-          data = file.lines
-        end
+        data = [file.lines[line_numbers]]
       else
         data = comment_line ? lines[1..-1] : lines
       end
@@ -86,8 +82,12 @@ class Guidedown
       split_comment_line_contents.length > 1
     end
 
-    def line_number
-      split_comment_line_contents.last.to_i - 1 if line_numbers?
+    def line_numbers
+      if line_numbers?
+        (split_comment_line_contents.last.to_i - 1)..(split_comment_line_contents.last.to_i - 1)
+      else
+        0..-1
+      end
     end
   end
 end

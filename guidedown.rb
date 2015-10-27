@@ -19,10 +19,6 @@ class Guidedown
       @data = data
     end
 
-    def name
-      comment_line_contents.to_s
-    end
-
     def to_s
       output = []
       output << " #{info_string}" if info_string
@@ -31,18 +27,8 @@ class Guidedown
       "```#{output.join}```"
     end
 
-    def unindented_data
-      @data.gsub(/^ {4}/, '')
-    end
-
-    def comment_line
-      lines.first.match(/# (.+)/)
-    end
-
-    def comment_line_contents
-      if comment_line
-        comment_line.to_s.sub(/^# /, '')
-      end
+    def name
+      comment_line_contents.to_s
     end
 
     def language_name
@@ -55,8 +41,22 @@ class Guidedown
 
     private
 
+    def unindented_data
+      @data.gsub(/^ {4}/, '')
+    end
+
     def lines
       @data.lines
+    end
+
+    def comment_line
+      lines.first.match(/# (.+)/)
+    end
+
+    def comment_line_contents
+      if comment_line
+        comment_line.to_s.sub(/^# /, '')
+      end
     end
   end
 end

@@ -7,13 +7,13 @@ describe Guidedown::Codeblock do
   end
 
   it "has a language name" do
-    codeblock = Guidedown::Codeblock.new("    # example.rb\n    def foo\n      puts 'bar'\n    end\n")
+    codeblock = Guidedown::Codeblock.new("    # examples/does_not_exist.rb")
     assert_equal "ruby", codeblock.language_name
   end
 
-  it "takes its info string from the language name" do
-    codeblock = Guidedown::Codeblock.new("    # example.rb")
-    assert_equal "ruby", codeblock.info_string
+  it "uses the language name as the info string" do
+    codeblock = Guidedown::Codeblock.new("    # examples/does_not_exist.js")
+    assert_equal "javascript", codeblock.info_string
   end
 
   it "takes its info string from the code block's comment" do

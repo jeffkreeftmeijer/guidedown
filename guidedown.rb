@@ -40,11 +40,20 @@ class Guidedown
       language_name || comment_line_contents
     end
 
+    def unindented_data
+      if file
+        data = file.lines
+      else
+        data = comment_line ? lines[1..-1] : lines
+      end
+
+      data.join.gsub(/^ {4}/, '')
+    end
+
     private
 
-    def unindented_data
-      data = comment_line ? lines[1..-1] : lines
-      data.join.gsub(/^ {4}/, '')
+    def file
+      File.read(name) if File.exists?(name)
     end
 
     def lines

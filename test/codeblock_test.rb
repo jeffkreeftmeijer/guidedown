@@ -20,4 +20,9 @@ describe Guidedown::Codeblock do
     codeblock = Guidedown::Codeblock.new("    # ruby")
     assert_equal "ruby", codeblock.info_string
   end
+
+  it "uses file contents as data" do
+    codeblock = Guidedown::Codeblock.new("    # examples/example.rb")
+    assert_equal "def foo\n  puts 'bar'\nend\n", codeblock.unindented_data
+  end
 end

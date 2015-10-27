@@ -15,4 +15,9 @@ describe "Guidedown's command line interface" do
     assert_equal "``` ruby\ndef foo\n  puts 'bar'\nend\n```\n",
       `bin/guidedown examples/syntax_highlighting_comment.md`
   end
+
+  it "replaces code blocks with actual file contents" do
+    assert_equal "``` ruby\n# examples/example.rb\ndef foo\n  puts 'bar'\nend\n```\n",
+      `bin/guidedown examples/code_block_replacement.md`
+  end
 end

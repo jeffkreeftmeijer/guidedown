@@ -29,7 +29,7 @@ class Guidedown
     end
 
     def name
-      comment_line_contents.to_s
+      split_comment_line_contents.first || ''
     end
 
     def language_name
@@ -42,7 +42,11 @@ class Guidedown
 
     def unindented_data
       if file
-        data = file.lines
+        if line_number
+          data = [file.lines[line_number]]
+        else
+          data = file.lines
+        end
       else
         data = comment_line ? lines[1..-1] : lines
       end
@@ -68,6 +72,22 @@ class Guidedown
       if comment_line
         comment_line.to_s.sub(/^# /, '')
       end
+    end
+
+    def split_comment_line_contents
+      if comment_line_contents
+        comment_line_contents.split(':')
+      else
+        []
+      end
+    end
+
+    def line_numbers?
+      split_comment_line_contents.length > 1
+    end
+
+    def line_number
+      split_comment_line_contents.last.to_i - 1 if line_numbers?
     end
   end
 end

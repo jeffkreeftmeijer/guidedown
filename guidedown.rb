@@ -24,11 +24,11 @@ class Guidedown
     end
 
     def to_s
-      if info_string
-        "``` #{info_string}\n#{unindented_data}```"
-      else
-        "```\n#{unindented_data}```"
-      end
+      output = []
+      output << " #{info_string}" if info_string
+      output << "\n#{unindented_data}"
+
+      "```#{output.join}```"
     end
 
     def unindented_data

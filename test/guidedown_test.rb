@@ -38,4 +38,9 @@ describe Guidedown do
     assert_equal "``` ruby\n# examples/example.rb:2\n  puts 'bar'\n```",
       Guidedown.new("    # examples/example.rb:2\n      # TODO: replace this...\n").to_s
   end
+
+  it "takes a line range from the file" do
+    assert_equal "``` ruby\n# examples/example.rb:1-2\ndef foo\n  puts 'bar'\n```",
+      Guidedown.new("    # examples/example.rb:1-2\n    def foo\n      # TODO: replace this...\n").to_s
+  end
 end

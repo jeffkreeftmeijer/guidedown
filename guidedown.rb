@@ -82,9 +82,13 @@ class Guidedown
       split_comment_line_contents.length > 1
     end
 
+    def split_line_numbers
+      split_comment_line_contents.last.split('-')
+    end
+
     def line_numbers
       if line_numbers?
-        (split_comment_line_contents.last.to_i - 1)..(split_comment_line_contents.last.to_i - 1)
+        (split_line_numbers.first.to_i - 1)..(split_line_numbers.last.to_i - 1)
       else
         0..-1
       end

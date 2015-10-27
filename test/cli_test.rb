@@ -25,4 +25,9 @@ describe "Guidedown's command line interface" do
     assert_equal "``` ruby\n# examples/example.rb:2\n  puts 'bar'\n```\n",
       `bin/guidedown examples/code_block_replacement_single_line.md`
   end
+
+  it "replaces code blocks with line ranges from actual files" do
+    assert_equal "``` ruby\n# examples/example.rb:1-2\ndef foo\n  puts 'bar'\n```\n",
+      `bin/guidedown examples/code_block_replacement_line_range.md`
+  end
 end

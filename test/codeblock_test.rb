@@ -30,4 +30,9 @@ describe Guidedown::Codeblock do
     codeblock = Guidedown::Codeblock.new("    # examples/example.rb:2")
     assert_equal "  puts 'bar'\n", codeblock.unindented_data
   end
+
+  it "uses a line range from a file as data" do
+    codeblock = Guidedown::Codeblock.new("    # examples/example.rb:1-2")
+    assert_equal "def foo\n  puts 'bar'\n", codeblock.unindented_data
+  end
 end

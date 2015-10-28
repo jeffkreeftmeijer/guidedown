@@ -96,7 +96,7 @@ class Guidedown
   end
 
   class Formatter
-    ELLIPSIS_PATTERN = /^\s*\.\.\./
+    ELLIPSIS_PATTERN = /^\s*\.{3,}/
 
     def initialize(pattern)
       @pattern = pattern

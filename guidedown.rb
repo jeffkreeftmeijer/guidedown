@@ -94,4 +94,22 @@ class Guidedown
       end
     end
   end
+
+  class Formatter
+    def initialize(pattern)
+      @pattern = pattern
+    end
+
+    def format(input)
+      if @pattern.include? '...'
+        head, tail = @pattern.split('...')
+
+        output = input.lines[0..head.lines.count - 1]
+        output << "...\n"
+        output.join
+      else
+        input
+      end
+    end
+  end
 end

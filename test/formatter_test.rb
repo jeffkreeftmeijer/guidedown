@@ -20,4 +20,9 @@ describe Guidedown::Formatter do
     output = Guidedown::Formatter.new("one\n...\nthree").format("foo\nbar\nbaz\n")
     output.must_equal "foo\n...\nbaz\n"
   end
+
+  it "handles indented ellipses" do
+    output = Guidedown::Formatter.new("one\n  ...\nthree").format("foo\nbar\nbaz\n")
+    output.must_equal "foo\n  ...\nbaz\n"
+  end
 end

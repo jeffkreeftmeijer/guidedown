@@ -96,16 +96,18 @@ class Guidedown
   end
 
   class Formatter
+    ELLIPSIS_PATTERN = /^\s*\.\.\./
+
     def initialize(pattern)
       @pattern = pattern
-      @head, @tail = @pattern.split('...')
+      @head, @tail = @pattern.split(ELLIPSIS_PATTERN)
     end
 
     def format(input)
-      if @pattern.include? '...'
+      if ellipsis?
         output = []
         output << input.lines[head_range] if head?
-        output << "...\n"
+        output << "#{ellipsis}\n"
         output << input.lines[tail_range] if tail?
         output.join
       else
@@ -114,6 +116,14 @@ class Guidedown
     end
 
     private
+
+    def ellipsis
+      @pattern.match(ELLIPSIS_PATTERN).to_s
+    end
+
+    def ellipsis?
+      !ellipsis.empty?
+    end
 
     def head_range
       0..@head.lines.count - 1

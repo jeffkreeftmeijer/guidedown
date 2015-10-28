@@ -98,18 +98,37 @@ class Guidedown
   class Formatter
     def initialize(pattern)
       @pattern = pattern
+      @head, @tail = @pattern.split('...')
     end
 
     def format(input)
       if @pattern.include? '...'
-        head, tail = @pattern.split('...')
-
-        output = input.lines[0..head.lines.count - 1]
+        output = []
+        output << input.lines[head_range] if head?
         output << "...\n"
+        output << input.lines[tail_range] if tail?
         output.join
       else
         input
       end
+    end
+
+    private
+
+    def head_range
+      0..@head.lines.count - 1
+    end
+
+    def tail_range
+      - @tail.lines.count + 1..-1
+    end
+
+    def head?
+      @head && !@head.empty?
+    end
+
+    def tail?
+      @tail && !@tail.empty?
     end
   end
 end

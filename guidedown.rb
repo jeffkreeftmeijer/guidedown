@@ -41,16 +41,20 @@ class Guidedown
     end
 
     def unindented_data
+      data = data_without_comment_line
+
       if file
-        data = [file.lines[line_numbers]]
-      else
-        data = comment_line ? lines[1..-1] : lines
+        data = Formatter.new(data).format(file.lines[line_numbers].join)
       end
 
-      data.join.gsub(/^ {4}/, '')
+      data.gsub(/^ {4}/, '')
     end
 
     private
+
+    def data_without_comment_line
+      (comment_line ? lines[1..-1] : lines).join
+    end
 
     def file
       File.read(name) if File.exists?(name)

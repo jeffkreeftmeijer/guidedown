@@ -30,4 +30,9 @@ describe "Guidedown's command line interface" do
     assert_equal "``` ruby\n# examples/example.rb:1-2\ndef foo\n  puts 'bar'\n```\n",
       `bin/guidedown examples/code_block_replacement_line_range.md`
   end
+
+  it "replaces code blocks with file contents, but omits a part" do
+    assert_equal "``` ruby\n# examples/example.rb\ndef foo\n  ...\nend\n```\n",
+      `bin/guidedown examples/code_block_replacement_ellipsis.md`
+  end
 end

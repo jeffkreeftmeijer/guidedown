@@ -169,3 +169,28 @@ Guidedown will run the command (`$echo "foo"`), and replace the rest of the code
     $ echo 'foo'
     foo
     ```
+
+If you want to include the command's results in your code block, but not the command, you can use `# $`. Given a file named `examples/code_block_replacement_console_output_hidden_command.md` with the following contents:
+
+    # examples/code_block_replacement_console_output_hidden_command.md
+        # $ echo "foo"
+        bar?
+
+Guidedown will run the command like before, but won't put the command line in the resulting output:
+
+    $ bin/guidedown code_block_replacement_console_output_hidden_command.md
+    ``` console
+    foo
+    ```
+
+Of course, it's also possible to just show the command, without running it. Given a file named `examples/code_block_replacement_command_without_output.md` with the following contents:
+
+    # examples/code_block_replacement_command_without_output.md
+        $ gem install guidedown
+
+Guidedown will just give you the command in a code block:
+
+    $ bin/guidedown examples/code_block_replacement_command_without_output.md
+    ``` console
+    $ gem install guidedown
+    ```

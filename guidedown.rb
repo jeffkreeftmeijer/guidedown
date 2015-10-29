@@ -33,7 +33,12 @@ class Guidedown
     end
 
     def language_name
-      language.name.downcase if language
+      case
+      when language
+        language.name.downcase
+      when command
+        'console'
+      end
     end
 
     def info_string

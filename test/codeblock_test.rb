@@ -40,4 +40,9 @@ describe Guidedown::Codeblock do
     codeblock = Guidedown::Codeblock.new("    $ echo foo")
     assert_equal "$ echo foo\nfoo\n", codeblock.unindented_data
   end
+
+  it "uses 'console' as the language name for console commands" do
+    codeblock = Guidedown::Codeblock.new("    $ echo foo")
+    assert_equal "console", codeblock.language_name
+  end
 end

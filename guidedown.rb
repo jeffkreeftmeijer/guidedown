@@ -41,14 +41,13 @@ class Guidedown
     end
 
     def unindented_data
-      data = data_without_comment_line
-
-      case
+      data = case
       when file
-        data = Formatter.new(data).format(file.lines[line_numbers].join)
+        Formatter.new(data_without_comment_line).format(file.lines[line_numbers].join)
       when command
-        output = `#{command}`
-        data = "#{command_line}\n#{output}"
+        [command_line, `#{command}`].join("\n")
+      else
+        data_without_comment_line
       end
 
       data.gsub(/^ {4}/, '')

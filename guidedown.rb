@@ -43,8 +43,12 @@ class Guidedown
     def unindented_data
       data = data_without_comment_line
 
-      if file
+      case
+      when file
         data = Formatter.new(data).format(file.lines[line_numbers].join)
+      when command
+        output = `#{command}`
+        data = "#{command_line}\n#{output}"
       end
 
       data.gsub(/^ {4}/, '')
@@ -58,6 +62,12 @@ class Guidedown
 
     def file
       File.read(name) if File.exists?(name)
+    end
+
+    def command
+      if command_line
+        command_line.to_s.sub(/^\$ /, '')
+      end
     end
 
     def lines
@@ -80,6 +90,10 @@ class Guidedown
       else
         []
       end
+    end
+
+    def command_line
+      lines.first.match(/\$ (.+)/)
     end
 
     def line_numbers?

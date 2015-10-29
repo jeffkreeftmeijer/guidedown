@@ -35,4 +35,9 @@ describe Guidedown::Codeblock do
     codeblock = Guidedown::Codeblock.new("    # examples/example.rb:1-2")
     assert_equal "def foo\n  puts 'bar'\n", codeblock.unindented_data
   end
+
+  it "runs console commands" do
+    codeblock = Guidedown::Codeblock.new("    $ echo foo")
+    assert_equal "$ echo foo\nfoo\n", codeblock.unindented_data
+  end
 end

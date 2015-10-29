@@ -7,7 +7,7 @@ describe "Guidedown's command line interface" do
   end
 
   it "sets language identifiers for code blocks with filenames" do
-    assert_equal "``` ruby\n# example.rb\ndef foo\n  puts 'bar'\nend\n```\n",
+    assert_equal "``` ruby\n# examples/example.rb\ndef foo\n  puts 'bar'\nend\n```\n",
       `bin/guidedown examples/syntax_highlighting.md`
   end
 

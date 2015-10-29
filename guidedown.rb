@@ -20,12 +20,13 @@ class Guidedown
     end
 
     def to_s
-      output = []
-      output << " #{info_string}" if info_string
-      output << "\n#{comment_line}" if include_comment_line?
-      output << "\n#{unindented_data}"
+      output = [
+        " #{info_string}".rstrip,
+        comment,
+        unindented_data
+      ]
 
-      "```#{output.join}```"
+      "```#{output.compact.join("\n")}```"
     end
 
     def name
@@ -42,7 +43,11 @@ class Guidedown
     end
 
     def info_string
-      language_name || comment_line_contents
+      file || command ? language_name : comment_line_contents
+    end
+
+    def comment
+      comment_line.to_s if file
     end
 
     def unindented_data
@@ -60,12 +65,6 @@ class Guidedown
       end
 
       data.gsub(/^ {4}/, '')
-    end
-
-    def include_comment_line?
-      !hidden_command? &&
-      comment_line_contents &&
-      info_string != comment_line_contents
     end
 
     private

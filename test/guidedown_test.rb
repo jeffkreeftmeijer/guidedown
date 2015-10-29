@@ -20,8 +20,8 @@ describe Guidedown do
   end
 
   it "sets the language identifier for a code block" do
-    assert_equal "``` ruby\n# example.rb\ndef foo\n  puts 'bar'\nend\n```",
-      Guidedown.new("    # example.rb\n    def foo\n      puts 'bar'\n    end\n").to_s
+    assert_equal "``` ruby\n# examples/example.rb\ndef foo\n  puts 'bar'\nend\n```",
+      Guidedown.new("    # examples/example.rb\n    def foo\n      puts 'bar'\n    end\n").to_s
   end
 
   it "sets the language identifier from the code block comment line" do

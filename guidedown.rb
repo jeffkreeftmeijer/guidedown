@@ -62,11 +62,13 @@ class Guidedown
       data.gsub(/^ {4}/, '')
     end
 
-    private
-
     def include_comment_line?
-      comment_line_contents && info_string != comment_line_contents
+      !hidden_command? &&
+      comment_line_contents &&
+      info_string != comment_line_contents
     end
+
+    private
 
     def data_without_comment_line
       (comment_line ? lines[1..-1] : lines).join

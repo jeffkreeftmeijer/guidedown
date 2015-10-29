@@ -53,4 +53,9 @@ describe Guidedown do
     assert_equal "``` console\n$ echo foo\nfoo\n```",
       Guidedown.new("    $ echo foo\n    bar?\n").to_s
   end
+
+  it "replaces code blocks with command line output with a hidden command" do
+    assert_equal "``` console\nfoo\n```",
+      Guidedown.new("    # $ echo foo\n    bar?\n").to_s
+  end
 end

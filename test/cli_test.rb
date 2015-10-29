@@ -40,4 +40,9 @@ describe "Guidedown's command line interface" do
     assert_equal "``` console\n$ echo 'foo'\nfoo\n```\n",
       `bin/guidedown examples/code_block_replacement_console_output.md`
   end
+
+  it "replaces code blocks with command line output with a hidden command" do
+    assert_equal "``` console\nfoo\n```\n",
+      `bin/guidedown examples/code_block_replacement_console_output_hidden_command.md`
+  end
 end

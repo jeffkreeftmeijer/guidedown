@@ -26,9 +26,14 @@ describe Guidedown::Codeblock do
     assert_equal "", codeblock.unindented_data
   end
 
-  it "removes hidden command comments" do
+  it "removes hidden command comments from the code block's contents" do
     codeblock = Guidedown::Codeblock.new("    # $ echo")
     assert_equal "\n", codeblock.unindented_data
+  end
+
+  it "does not include the comment line for hidden commands" do
+    codeblock = Guidedown::Codeblock.new("    # $ echo")
+    refute codeblock.include_comment_line?
   end
 
   it "uses file contents as data" do

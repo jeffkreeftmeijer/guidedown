@@ -21,6 +21,16 @@ describe Guidedown::Codeblock do
     assert_equal "ruby", codeblock.info_string
   end
 
+  it "removes info string comments" do
+    codeblock = Guidedown::Codeblock.new("    # ruby")
+    assert_equal "", codeblock.unindented_data
+  end
+
+  it "removes hidden command comments" do
+    codeblock = Guidedown::Codeblock.new("    # $ echo")
+    assert_equal "\n", codeblock.unindented_data
+  end
+
   it "uses file contents as data" do
     codeblock = Guidedown::Codeblock.new("    # examples/example.rb")
     assert_equal "def foo\n  puts 'bar'\nend\n", codeblock.unindented_data

@@ -50,7 +50,11 @@ class Guidedown
       when file
         Formatter.new(data_without_comment_line).format(file.lines[line_numbers].join)
       when command
-        [command_line, `#{command}`].join("\n")
+        output = []
+        output << command_line unless hidden_command?
+        output << `#{command}`
+
+        output.join("\n")
       else
         data_without_comment_line
       end
@@ -74,8 +78,12 @@ class Guidedown
 
     def command
       if command_line
-        command_line.to_s.sub(/^\$ /, '')
+        command_line.to_s.sub(/^(# )?\$ /, '')
       end
+    end
+
+    def hidden_command?
+      command_line.to_s.match(/^# \$/)
     end
 
     def lines
@@ -101,7 +109,7 @@ class Guidedown
     end
 
     def command_line
-      lines.first.match(/\$ (.+)/)
+      lines.first.match(/(# )?\$ (.+)/)
     end
 
     def line_numbers?

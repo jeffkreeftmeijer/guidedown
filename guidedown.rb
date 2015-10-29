@@ -22,7 +22,7 @@ class Guidedown
     def to_s
       output = []
       output << " #{info_string}" if info_string
-      output << "\n#{comment_line}" unless info_string == comment_line_contents
+      output << "\n#{comment_line}" if include_comment_line?
       output << "\n#{unindented_data}"
 
       "```#{output.join}```"
@@ -59,6 +59,10 @@ class Guidedown
     end
 
     private
+
+    def include_comment_line?
+      comment_line_contents && info_string != comment_line_contents
+    end
 
     def data_without_comment_line
       (comment_line ? lines[1..-1] : lines).join

@@ -35,4 +35,9 @@ describe "Guidedown's command line interface" do
     assert_equal "``` ruby\n# examples/example.rb\ndef foo\n  ...\nend\n```\n",
       `bin/guidedown examples/code_block_replacement_ellipsis.md`
   end
+
+  it "replaces code blocks with command line output" do
+    assert_equal "``` console\n$ echo 'foo'\nfoo\n```\n",
+      `bin/guidedown examples/code_block_replacement_console_output.md`
+  end
 end

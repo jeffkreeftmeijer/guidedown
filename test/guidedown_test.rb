@@ -48,4 +48,9 @@ describe Guidedown do
     assert_equal "``` ruby\n# examples/example.rb\ndef foo\n  ...\nend\n```",
       Guidedown.new("    # examples/example.rb\n    def foo\n      ...\n    end\n").to_s
   end
+
+  it "replaces code blocks with command line output" do
+    assert_equal "``` console\n$ echo foo\nfoo\n```",
+      Guidedown.new("    $ echo foo\n    bar?\n").to_s
+  end
 end

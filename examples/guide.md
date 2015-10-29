@@ -153,3 +153,19 @@ Guidedown will use the pattern from the code block to find out which lines to in
       ...
     end
     ```
+
+### Console output
+
+Guidedown can run console commands and put the output in the guide. Given a file named `examples/code_block_replacement_console_output.md` with the following contents:
+
+    # examples/code_block_replacement_console_output.md
+        $ echo "foo"
+        bar?
+
+Guidedown will run the command (`$echo "foo"`), and replace the rest of the code block with its output:
+
+    $ bin/guidedown examples/code_block_replacement_console_output.md
+    ``` console
+    $ echo 'foo'
+    foo
+    ```

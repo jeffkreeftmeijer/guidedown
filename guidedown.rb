@@ -20,11 +20,7 @@ class Guidedown
     end
 
     def to_s
-      output = [
-        " #{info_string}".rstrip,
-        comment,
-        unindented_data
-      ]
+      output = [" #{info_string}".rstrip, comment, command, contents]
 
       "```#{output.compact.join("\n")}```"
     end
@@ -37,55 +33,36 @@ class Guidedown
       case
       when language
         language.name.downcase
-      when command
+      when command_line
         'console'
       end
     end
 
     def info_string
-      file || command ? language_name : comment_line_contents
+      file || command_line ? language_name : comment_line_contents
     end
 
     def comment
       comment_line.to_s if file
     end
 
-    def unindented_data
+    def command
+      command_line.to_s if command_line && !hidden_command?
+    end
+
+    def contents
       data = case
-      when file
-        Formatter.new(data_without_comment_line).format(file.lines[line_numbers].join)
-      when command
-        output = []
-        output << command_line unless hidden_command?
-        output << `#{command}`
-
-        output.join("\n")
+       when file
+        data = Formatter.new(data_without_comment_line).format(file.lines[line_numbers].join)
+     when executable_command
+       `#{executable_command}`
       else
-        data_without_comment_line
+        data = data_without_comment_line
       end
-
       data.gsub(/^ {4}/, '')
     end
 
     private
-
-    def data_without_comment_line
-      (comment_line ? lines[1..-1] : lines).join
-    end
-
-    def file
-      File.read(name) if File.exists?(name)
-    end
-
-    def command
-      if command_line
-        command_line.to_s.sub(/^(# )?\$ /, '')
-      end
-    end
-
-    def hidden_command?
-      command_line.to_s.match(/^# \$/)
-    end
 
     def lines
       @data.lines
@@ -109,8 +86,26 @@ class Guidedown
       end
     end
 
+    def data_without_comment_line
+      (comment_line ? lines[1..-1] : lines).join
+    end
+
     def command_line
       lines.first.match(/(# )?\$ (.+)/)
+    end
+
+    def executable_command
+      if command_line
+        command_line.to_s.sub(/^(# )?\$ /, '')
+      end
+    end
+
+    def hidden_command?
+      command_line.to_s.match(/^# \$/)
+    end
+
+    def file
+      File.read(name) if File.exists?(name)
     end
 
     def line_numbers?

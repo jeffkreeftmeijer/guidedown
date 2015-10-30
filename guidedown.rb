@@ -22,16 +22,12 @@ class Guidedown
     end
 
     def to_s
-      output = if @options[:html_code_blocks]
-        [comment, command, contents]
-      else
-        [" #{info_string}".rstrip, comment, command, contents]
-      end.compact.join("\n")
-
       if @options[:html_code_blocks]
-        "<pre><code>#{output}</code></pre>"
+        output = [comment, command, contents]
+        "<pre><code>#{output.compact.join("\n")}</code></pre>"
       else
-        "```#{output}```"
+        output = [" #{info_string}".rstrip, comment, command, contents]
+        "```#{output.compact.join("\n")}```"
       end
     end
 

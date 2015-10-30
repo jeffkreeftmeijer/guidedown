@@ -58,4 +58,9 @@ describe Guidedown do
     assert_equal "``` console\nfoo\n```",
       Guidedown.new("    # $ echo foo\n    bar?\n").to_s
   end
+
+  it "does not replace code blocks with only a console command" do
+    assert_equal "``` console\n$ echo foo\n```",
+      Guidedown.new("    $ echo foo\n").to_s
+  end
 end

@@ -52,13 +52,14 @@ class Guidedown
 
     def contents
       data = case
-       when file
-        data = Formatter.new(data_without_comment_line).format(file.lines[line_numbers].join)
-     when executable_command
-       `#{executable_command}`
+      when file
+        Formatter.new(data_without_comments_or_commands).format(file.lines[line_numbers].join)
+      when executable_command
+        data_without_comments_or_commands.empty? ? '' : `#{executable_command}`
       else
-        data = data_without_comment_line
+        data_without_comments_or_commands
       end
+
       data.gsub(/^ {4}/, '')
     end
 
@@ -69,7 +70,7 @@ class Guidedown
     end
 
     def comment_line
-      lines.first.match(/# (.+)/)
+      lines.first.match(/# (.+)/) unless hidden_command?
     end
 
     def comment_line_contents
@@ -86,8 +87,8 @@ class Guidedown
       end
     end
 
-    def data_without_comment_line
-      (comment_line ? lines[1..-1] : lines).join
+    def data_without_comments_or_commands
+      (lines[[!!comment_line, !!command_line].count(true)..-1] || []).join
     end
 
     def command_line

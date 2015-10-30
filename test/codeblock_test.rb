@@ -94,6 +94,11 @@ describe Guidedown::Codeblock do
         assert_equal "foo\n",
           Guidedown::Codeblock.new("    $ echo foo\n    bar?").contents
       end
+
+      it "does not run console commands for command-only code blocks" do
+        codeblock = Guidedown::Codeblock.new("    $ echo foo")
+        assert_equal '', codeblock.contents
+      end
     end
   end
 

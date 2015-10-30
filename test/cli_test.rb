@@ -45,4 +45,9 @@ describe "Guidedown's command line interface" do
     assert_equal "``` console\nfoo\n```\n",
       `bin/guidedown examples/code_block_replacement_console_output_hidden_command.md`
   end
+
+  it "does not replace code blocks with only a console command" do
+    assert_equal "``` console\n$ gem install guidedown\n```\n",
+      `bin/guidedown examples/code_block_replacement_command_without_output.md`
+  end
 end

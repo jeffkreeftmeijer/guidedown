@@ -30,9 +30,9 @@ class Guidedown
       output = parts.compact.join("\n")
 
       if @options[:html_code_blocks]
-        "<pre><code>#{output}</code></pre>"
+        "<pre><code>#{output}</code></pre>\n"
       else
-        "```#{output}```"
+        "```#{output}```\n"
       end
     end
 

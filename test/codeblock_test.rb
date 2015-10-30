@@ -125,19 +125,19 @@ describe Guidedown::Codeblock do
   describe "with HTML code blocks" do
     it "uses <pre> and <code> tags instead of backticks" do
       codeblock = Guidedown::Codeblock.new("    contents\n", html_code_blocks: true)
-      assert_equal "<pre><code>contents\n</code></pre>", codeblock.to_s
+      assert_equal "<pre><code>contents\n</code></pre>\n", codeblock.to_s
     end
 
     it "omits the info string" do
       codeblock = Guidedown::Codeblock.new("    # ruby", html_code_blocks: true)
-      assert_equal "<pre><code></code></pre>", codeblock.to_s
+      assert_equal "<pre><code></code></pre>\n", codeblock.to_s
     end
   end
 
   describe "without filenames" do
     it "omits filenames" do
       codeblock = Guidedown::Codeblock.new("    # examples/example.rb", no_filenames: true)
-      assert_equal "``` ruby\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```", codeblock.to_s
+      assert_equal "``` ruby\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n", codeblock.to_s
     end
   end
 end

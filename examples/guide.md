@@ -21,7 +21,7 @@ After installing you'll have a `guidedown` executable you can pass Markdown file
 
 Or you can pass strings using a pipe, if that's your thing:
 
-    $ echo -e "This is a paragraph\n\n    def foo\n      puts \"bar\"\n    end" | bin/guidedown
+    $ cat examples/code_block.md | bin/guidedown
     This is a paragraph.
 
     ```
@@ -29,8 +29,6 @@ Or you can pass strings using a pipe, if that's your thing:
       puts 'bar'
     end
     ```
-
-
 
 ## Code blocks
 

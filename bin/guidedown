@@ -8,6 +8,11 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: guidedown [options]"
 
+  opts.on("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+
   opts.on("--html-code-blocks", "Wrap code blocks in `<code>` and `<pre>` tags instead of backticks.") do
     options[:html_code_blocks] = true
   end

@@ -62,6 +62,11 @@ describe "Guidedown's command line interface" do
   end
 
   describe "command line options" do
+    it "shows the help message" do
+      assert_equal "Usage: guidedown [options]\n",
+        `bin/guidedown -h`.lines.first
+    end
+
     it "uses HTML code blocks" do
       assert_equal "This is a paragraph.\n\n<pre><code>\ndef foo\n  puts 'bar'\nend\n</code></pre>\n",
         `bin/guidedown examples/code_block.md --html-code-blocks`

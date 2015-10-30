@@ -121,4 +121,9 @@ describe Guidedown::Codeblock do
     codeblock = Guidedown::Codeblock.new("    contents\n")
     assert_equal "contents\n", codeblock.to_s.lines[1]
   end
+
+  it "uses <pre> and <code> tags instead of backticks" do
+    codeblock = Guidedown::Codeblock.new("    contents\n", html_code_blocks: true)
+    assert_equal "<pre><code>\ncontents\n</code></pre>", codeblock.to_s
+  end
 end

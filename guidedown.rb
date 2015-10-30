@@ -15,14 +15,19 @@ class Guidedown
     include Linguist::BlobHelper
     attr_reader :data
 
-    def initialize(data)
+    def initialize(data, options = {})
       @data = data
+      @options = options
     end
 
     def to_s
-      output = [" #{info_string}".rstrip, comment, command, contents]
+      output = [" #{info_string}".rstrip, comment, command, contents].compact.join("\n")
 
-      "```#{output.compact.join("\n")}```"
+      if @options[:html_code_blocks]
+        "<pre><code>#{output}</code></pre>"
+      else
+        "```#{output}```"
+      end
     end
 
     def name

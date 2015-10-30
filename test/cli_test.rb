@@ -71,5 +71,10 @@ describe "Guidedown's command line interface" do
       assert_equal "This is a paragraph.\n\n<pre><code>def foo\n  puts 'bar'\nend\n</code></pre>\n",
         `bin/guidedown examples/code_block.md --html-code-blocks`
     end
+
+    it "omits filenames" do
+      assert_equal "``` ruby\ndef foo\n  puts 'bar'\nend\n```\n",
+        `bin/guidedown examples/code_block_replacement.md --no-filenames`
+    end
   end
 end

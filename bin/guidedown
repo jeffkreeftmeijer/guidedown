@@ -16,6 +16,10 @@ OptionParser.new do |opts|
   opts.on("--html-code-blocks", "Wrap code blocks in `<code>` and `<pre>` tags instead of backticks.") do
     options[:html_code_blocks] = true
   end
+
+  opts.on("--no-filenames", "Remove filenames from code camples.") do
+    options[:no_filenames] = true
+  end
 end.parse!
 
 puts Guidedown.new(ARGF.read, options).to_s

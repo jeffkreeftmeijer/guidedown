@@ -133,4 +133,11 @@ describe Guidedown::Codeblock do
       assert_equal "<pre><code></code></pre>", codeblock.to_s
     end
   end
+
+  describe "without filenames" do
+    it "omits filenames" do
+      codeblock = Guidedown::Codeblock.new("    # examples/example.rb", no_filenames: true)
+      assert_equal "``` ruby\ndef foo\n  puts 'bar'\nend\n```", codeblock.to_s
+    end
+  end
 end

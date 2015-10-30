@@ -60,4 +60,11 @@ describe "Guidedown's command line interface" do
     assert_equal "``` console\n$ gem install guidedown\n```\n",
       `bin/guidedown examples/code_block_replacement_command_without_output.md`
   end
+
+  describe "command line options" do
+    it "uses HTML code blocks" do
+      assert_equal "This is a paragraph.\n\n<pre><code>\ndef foo\n  puts 'bar'\nend\n</code></pre>\n",
+        `bin/guidedown examples/code_block.md --html-code-blocks`
+    end
+  end
 end

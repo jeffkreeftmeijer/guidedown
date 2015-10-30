@@ -1,4 +1,16 @@
 #!/usr/bin/env ruby
 require_relative '../guidedown'
 
-puts Guidedown.new(ARGF.read).to_s
+require 'optparse'
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: guidedown [options]"
+
+  opts.on("--html-code-blocks", "Wrap code blocks in `<code>` and `<pre>` tags instead of backticks.") do
+    options[:html_code_blocks] = true
+  end
+end.parse!
+
+puts Guidedown.new(ARGF.read, options).to_s

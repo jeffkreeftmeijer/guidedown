@@ -1,6 +1,16 @@
 require_relative 'test_helper'
 
 describe "Guidedown's command line interface" do
+  it "uses file contents" do
+    assert_equal "This is a paragraph.\n",
+      `bin/guidedown examples/paragraph.md`
+  end
+
+  it "uses piped strings" do
+    assert_equal "This is a paragraph.\n",
+      `echo "This is a paragraph." | bin/guidedown`
+  end
+
   it "converts indented code blocks to fenced code blocks" do
     assert_equal "This is a paragraph.\n\n```\ndef foo\n  puts 'bar'\nend\n```\n",
       `bin/guidedown examples/code_block.md`

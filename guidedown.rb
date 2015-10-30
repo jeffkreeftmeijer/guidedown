@@ -158,7 +158,7 @@ class Guidedown
     private
 
     def ellipsis
-      @pattern.match(ELLIPSIS_PATTERN).to_s
+      @pattern.match(ELLIPSIS_PATTERN).to_s.gsub(/^ {4}/, '')
     end
 
     def ellipsis?

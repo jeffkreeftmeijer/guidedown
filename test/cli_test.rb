@@ -42,7 +42,7 @@ describe "Guidedown's command line interface" do
   end
 
   it "replaces code blocks with file contents, but omits a part" do
-    assert_equal "``` ruby\n# examples/example.rb\nclass Foo\n      ...\nend\n```\n",
+    assert_equal "``` ruby\n# examples/example.rb\nclass Foo\n  ...\nend\n```\n",
       `bin/guidedown examples/code_block_replacement_ellipsis.md`
   end
 

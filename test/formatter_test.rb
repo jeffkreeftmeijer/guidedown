@@ -26,6 +26,11 @@ describe Guidedown::Formatter do
     output.must_equal "foo\n  ...\nbaz\n"
   end
 
+  it "unindents ellipses" do
+    output = Guidedown::Formatter.new("    one\n    ...\n    three").format("foo\nbar\nbaz\n")
+    output.must_equal "foo\n...\nbaz\n"
+  end
+
   it "ignores ellipses with less than three dots" do
     output = Guidedown::Formatter.new("one\n..\nthree").format("foo\nbar\nbaz\n")
     output.must_equal "foo\nbar\nbaz\n"

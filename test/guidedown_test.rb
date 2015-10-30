@@ -45,7 +45,7 @@ describe Guidedown do
   end
 
   it "replaces code blocks with file contents with ommitted parts" do
-    assert_equal "``` ruby\n# examples/example.rb\nclass Foo\n      ...\nend\n```",
+    assert_equal "``` ruby\n# examples/example.rb\nclass Foo\n  ...\nend\n```",
       Guidedown.new("    # examples/example.rb\n    class Foo\n      ...\n    end\n").to_s
   end
 

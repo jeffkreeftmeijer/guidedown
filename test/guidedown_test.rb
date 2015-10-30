@@ -65,6 +65,6 @@ describe Guidedown do
   end
 
   it "wraps code blocks in <pre> and <code> tags instead of backticks" do
-    assert_equal "<pre><code>\nfoo\n</code></pre>", Guidedown.new("    foo\n", html_code_blocks: true).to_s
+    assert_equal "<pre><code>foo\n</code></pre>", Guidedown.new("    foo\n", html_code_blocks: true).to_s
   end
 end

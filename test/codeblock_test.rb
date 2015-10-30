@@ -30,10 +30,6 @@ describe Guidedown::Codeblock do
       assert_equal 'console',
         Guidedown::Codeblock.new('    # $ echo foo').info_string
     end
-
-    it "does not have an info string when using html code blocks" do
-      assert_nil Guidedown::Codeblock.new("    # examples/example.rb", {html_code_blocks: true}).info_string
-    end
   end
 
   describe "comments" do
@@ -126,8 +122,15 @@ describe Guidedown::Codeblock do
     assert_equal "contents\n", codeblock.to_s.lines[1]
   end
 
-  it "uses <pre> and <code> tags instead of backticks" do
-    codeblock = Guidedown::Codeblock.new("    contents\n", html_code_blocks: true)
-    assert_equal "<pre><code>\ncontents\n</code></pre>", codeblock.to_s
+  describe "with HTML code blocks" do
+    it "uses <pre> and <code> tags instead of backticks" do
+      codeblock = Guidedown::Codeblock.new("    contents\n", html_code_blocks: true)
+      assert_equal "<pre><code>contents\n</code></pre>", codeblock.to_s
+    end
+
+    it "omits the info string" do
+      codeblock = Guidedown::Codeblock.new("    # ruby", html_code_blocks: true)
+      assert_equal "<pre><code></code></pre>", codeblock.to_s
+    end
   end
 end

@@ -22,7 +22,11 @@ class Guidedown
     end
 
     def to_s
-      output = [" #{info_string}".rstrip, comment, command, contents].compact.join("\n")
+      output = if @options[:html_code_blocks]
+        [comment, command, contents]
+      else
+        [" #{info_string}".rstrip, comment, command, contents]
+      end.compact.join("\n")
 
       if @options[:html_code_blocks]
         "<pre><code>#{output}</code></pre>"
@@ -45,9 +49,7 @@ class Guidedown
     end
 
     def info_string
-      unless @options[:html_code_blocks]
-        file || command_line ? language_name : comment_line_contents
-      end
+      file || command_line ? language_name : comment_line_contents
     end
 
     def comment

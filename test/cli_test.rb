@@ -68,7 +68,7 @@ describe "Guidedown's command line interface" do
     end
 
     it "uses HTML code blocks" do
-      assert_equal "This is a paragraph.\n\n<pre><code>\ndef foo\n  puts 'bar'\nend\n</code></pre>\n",
+      assert_equal "This is a paragraph.\n\n<pre><code>def foo\n  puts 'bar'\nend\n</code></pre>\n",
         `bin/guidedown examples/code_block.md --html-code-blocks`
     end
   end

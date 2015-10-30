@@ -1,13 +1,14 @@
 require 'linguist'
 
 class Guidedown
-  def initialize(input)
+  def initialize(input, options = {})
     @input = input
+    @options = options
   end
 
   def to_s
     @input.gsub(/ {4,}.+(\n+ {4,}.+)*\n/).each do |match|
-      Codeblock.new(match).to_s
+      Codeblock.new(match, @options).to_s
     end
   end
 

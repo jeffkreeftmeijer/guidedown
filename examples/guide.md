@@ -105,7 +105,7 @@ Guidedown will replace everything in the code block with the actual contents fro
 
 If you only want to show part of a file, you can truncate the code block by passing the range of lines you want to include. Given a file named `example-line-range.md` with the following contents:
 
-    $ bin/guidedown examples/code_block_replacement_line_range
+    $ bin/guidedown examples/code_block_replacement_line_range.md
         # examples/example.rb:1-2
         def foo
           # TODO: replace this with the actual line from `examples/example.rb:1-2`.
@@ -178,7 +178,7 @@ If you want to include the command's results in your code block, but not the com
 
 Guidedown will run the command like before, but won't put the command line in the resulting output:
 
-    $ bin/guidedown code_block_replacement_console_output_hidden_command.md
+    $ bin/guidedown examples/code_block_replacement_console_output_hidden_command.md
     ``` console
     foo
     ```

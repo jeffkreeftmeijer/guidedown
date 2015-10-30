@@ -19,6 +19,19 @@ After installing you'll have a `guidedown` executable you can pass Markdown file
     end
     ```
 
+Or you can pass strings using a pipe, if that's your thing:
+
+    $ echo -e "This is a paragraph\n\n    def foo\n      puts \"bar\"\n    end" | bin/guidedown
+    This is a paragraph.
+
+    ```
+    def foo
+      puts 'bar'
+    end
+    ```
+
+
+
 ## Code blocks
 
 Indented code blocks are converted to fenced code blocks. Given a file named `examples/code_block.md`, with these contents:

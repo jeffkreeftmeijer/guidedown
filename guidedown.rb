@@ -45,7 +45,9 @@ class Guidedown
     end
 
     def info_string
-      file || command_line ? language_name : comment_line_contents
+      unless @options[:html_code_blocks]
+        file || command_line ? language_name : comment_line_contents
+      end
     end
 
     def comment

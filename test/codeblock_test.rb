@@ -30,6 +30,10 @@ describe Guidedown::Codeblock do
       assert_equal 'console',
         Guidedown::Codeblock.new('    # $ echo foo').info_string
     end
+
+    it "does not have an info string when using html code blocks" do
+      assert_nil Guidedown::Codeblock.new("    # examples/example.rb", {html_code_blocks: true}).info_string
+    end
   end
 
   describe "comments" do

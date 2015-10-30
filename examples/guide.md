@@ -19,7 +19,7 @@ After installing you'll have a `guidedown` executable you can pass Markdown file
     end
     ```
 
-Or you can pass strings using a pipe, if that's your thing:
+Or you can pipe strings to it, if that's your thing:
 
     $ cat examples/code_block.md | bin/guidedown
     This is a paragraph.
@@ -114,7 +114,7 @@ Guidedown will replace everything in the code block with the actual contents fro
     
 #### Truncating file contents
 
-If you only want to show part of a file, you can truncate the code block by passing the range of lines you want to include. Given a file named `example-line-range.md` with the following contents:
+If you only want to show part of a file, you can truncate the code block by passing the range of lines you want to include. Given a file named `examples/code_block_replacement_line_range.md` with the following contents:
 
     $ bin/guidedown examples/code_block_replacement_line_range.md
         # examples/example.rb:1-2
@@ -131,7 +131,7 @@ Guidedown will replace the code block with the range of lines specified:
       puts 'bar'
     ```
     
-Single lines work too. Given a file named `example-single-line.md` with the following contents:
+Single lines work too. Given a file named `examples/code_block_replacement_single_line.md` with the following contents:
 
     # examples/code_block_replacement_single_line.md
         # examples/example.rb:2
@@ -147,7 +147,7 @@ Guidedown will replace the code block with the line specified:
     
 #### Omitting parts of files
 
-Alternatively, you can use ellipses to omit parts of an included file. Given a file named `example-ellipsis.md` with the following contents:
+Alternatively, you can use ellipses to omit parts of an included file. Given a file named `examples/code_block_replacement_ellipsis.md` with the following contents:
 
     # examples/code_block_replacement_ellipsis.md
         # examples/example.rb
@@ -173,7 +173,7 @@ Guidedown can run console commands and put the output in the guide. Given a file
         $ echo "foo"
         bar?
 
-Guidedown will run the command (`$echo "foo"`), and replace the rest of the code block with its output:
+Guidedown will run the command (`$ echo "foo"`), and replace the rest of the code block with its output:
 
     $ bin/guidedown examples/code_block_replacement_console_output.md
     ``` console

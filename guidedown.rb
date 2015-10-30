@@ -68,10 +68,8 @@ class Guidedown
       when executable_command
         data_without_comments_or_commands.empty? ? '' : `#{executable_command}`
       else
-        data_without_comments_or_commands
+        data_without_comments_or_commands.gsub(/^ {4}/, '')
       end
-
-      data.gsub(/^ {4}/, '')
     end
 
     private

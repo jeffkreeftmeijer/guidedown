@@ -1,4 +1,4 @@
     # examples/example.rb
-    def foo
+    class Foo
       ...
     end

@@ -17,7 +17,7 @@ describe "Guidedown's command line interface" do
   end
 
   it "sets language identifiers for code blocks with filenames" do
-    assert_equal "``` ruby\n# examples/example.rb\ndef foo\n  puts 'bar'\nend\n```\n",
+    assert_equal "``` ruby\n# examples/example.rb\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n",
       `bin/guidedown examples/syntax_highlighting.md`
   end
 
@@ -27,22 +27,22 @@ describe "Guidedown's command line interface" do
   end
 
   it "replaces code blocks with actual file contents" do
-    assert_equal "``` ruby\n# examples/example.rb\ndef foo\n  puts 'bar'\nend\n```\n",
+    assert_equal "``` ruby\n# examples/example.rb\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n",
       `bin/guidedown examples/code_block_replacement.md`
   end
 
   it "replaces code blocks with single lines from actual files" do
-    assert_equal "``` ruby\n# examples/example.rb:2\n  puts 'bar'\n```\n",
+    assert_equal "``` ruby\n# examples/example.rb:3\n    puts 'bar'\n```\n",
       `bin/guidedown examples/code_block_replacement_single_line.md`
   end
 
   it "replaces code blocks with line ranges from actual files" do
-    assert_equal "``` ruby\n# examples/example.rb:1-2\ndef foo\n  puts 'bar'\n```\n",
+    assert_equal "``` ruby\n# examples/example.rb:1-2\nclass Foo\n  def foo\n```\n",
       `bin/guidedown examples/code_block_replacement_line_range.md`
   end
 
   it "replaces code blocks with file contents, but omits a part" do
-    assert_equal "``` ruby\n# examples/example.rb\ndef foo\n  ...\nend\n```\n",
+    assert_equal "``` ruby\n# examples/example.rb\nclass Foo\n      ...\nend\n```\n",
       `bin/guidedown examples/code_block_replacement_ellipsis.md`
   end
 
@@ -73,7 +73,7 @@ describe "Guidedown's command line interface" do
     end
 
     it "omits filenames" do
-      assert_equal "``` ruby\ndef foo\n  puts 'bar'\nend\n```\n",
+      assert_equal "``` ruby\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n",
         `bin/guidedown examples/code_block_replacement.md --no-filenames`
     end
   end

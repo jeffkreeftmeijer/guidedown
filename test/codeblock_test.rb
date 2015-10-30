@@ -74,17 +74,17 @@ describe Guidedown::Codeblock do
 
     describe "concerning file contents" do
       it "uses file contents" do
-        assert_equal "def foo\n  puts 'bar'\nend\n",
+        assert_equal "class Foo\n  def foo\n    puts 'bar'\n  end\nend\n",
           Guidedown::Codeblock.new('    # examples/example.rb').contents
       end
 
       it "uses a single line from a file" do
-        assert_equal "  puts 'bar'\n",
-          Guidedown::Codeblock.new('    # examples/example.rb:2').contents
+        assert_equal "    puts 'bar'\n",
+          Guidedown::Codeblock.new('    # examples/example.rb:3').contents
       end
 
       it "uses a line range from a file as data" do
-        assert_equal "def foo\n  puts 'bar'\n",
+        assert_equal "class Foo\n  def foo\n",
           Guidedown::Codeblock.new('    # examples/example.rb:1-2').contents
       end
     end
@@ -137,7 +137,7 @@ describe Guidedown::Codeblock do
   describe "without filenames" do
     it "omits filenames" do
       codeblock = Guidedown::Codeblock.new("    # examples/example.rb", no_filenames: true)
-      assert_equal "``` ruby\ndef foo\n  puts 'bar'\nend\n```", codeblock.to_s
+      assert_equal "``` ruby\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```", codeblock.to_s
     end
   end
 end

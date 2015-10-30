@@ -1,4 +1,4 @@
     # examples/example.rb
-    def foo
+    class Foo
       # TODO: replace this with the actual contents from `examples/example.rb`.
     end

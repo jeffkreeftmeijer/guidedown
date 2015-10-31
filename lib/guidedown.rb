@@ -23,7 +23,13 @@ class Guidedown
 
     def to_s
       parts = []
-      parts << " #{info_string}".rstrip unless @options[:html_code_blocks]
+      unless @options[:html_code_blocks]
+        if @options[:sticky_info_strings]
+          parts << info_string
+        else
+          parts << " #{info_string}".rstrip
+        end
+      end
       parts << comment unless @options[:no_filenames]
       parts << command
       parts << contents

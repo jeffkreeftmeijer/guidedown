@@ -72,4 +72,9 @@ describe Guidedown do
     assert_equal "``` ruby\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n",
       Guidedown.new("    # examples/example.rb\n", no_filenames: true).to_s
   end
+
+  it "removes leading spaces from info strings" do
+    assert_equal "```ruby\n# examples/example.rb\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n",
+      Guidedown.new("    # examples/example.rb\n", sticky_info_strings: true).to_s
+  end
 end

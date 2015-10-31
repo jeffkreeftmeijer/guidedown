@@ -140,4 +140,11 @@ describe Guidedown::Codeblock do
       assert_equal "``` ruby\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n", codeblock.to_s
     end
   end
+
+  describe "with sticky info strings" do
+    it "removes leading spaces from info strings" do
+      codeblock = Guidedown::Codeblock.new("    # examples/example.rb", sticky_info_strings: true)
+      assert_equal "```ruby\n# examples/example.rb\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n", codeblock.to_s
+    end
+  end
 end

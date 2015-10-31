@@ -20,6 +20,10 @@ OptionParser.new do |opts|
   opts.on("--no-filenames", "Remove filenames from code camples.") do
     options[:no_filenames] = true
   end
+
+  opts.on("--sticky-info-strings", "Remove leading spaces from info strings.") do
+    options[:sticky_info_strings] = true
+  end
 end.parse!
 
 puts Guidedown.new(ARGF.read, options).to_s

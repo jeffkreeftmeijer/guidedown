@@ -76,5 +76,10 @@ describe "Guidedown's command line interface" do
       assert_equal "``` ruby\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n",
         `bin/guidedown examples/code_block_replacement.md --no-filenames`
     end
+
+    it "removes leading spaces from info strings" do
+      assert_equal "```ruby\n# examples/example.rb\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n",
+        `bin/guidedown examples/code_block_replacement.md --sticky-info-strings`
+    end
   end
 end

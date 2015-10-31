@@ -148,7 +148,7 @@ end
 
 ### Code block replacement
 
-When specitying a filename for a code block, Guidedown will try to find the file and replace the block's contents with the actual contents from the file. Given a file named `examples/code_block_replacement.md`, with these contents:
+When specifying a filename for a code block, Guidedown will try to find the file and replace the block's contents with the actual contents from the file. Given a file named `examples/code_block_replacement.md`, with these contents:
 
 <pre><code>    # examples/example.rb
     class Foo

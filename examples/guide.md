@@ -134,7 +134,7 @@ Guidedown will use the comment line as the language identifier in the resulting 
 
 ### Code block replacement
 
-When specitying a filename for a code block, Guidedown will try to find the file and replace the block's contents with the actual contents from the file. Given a file named `examples/code_block_replacement.md`, with these contents:
+When specifying a filename for a code block, Guidedown will try to find the file and replace the block's contents with the actual contents from the file. Given a file named `examples/code_block_replacement.md`, with these contents:
 
     # examples/code_block_replacement.md
         # examples/example.rb

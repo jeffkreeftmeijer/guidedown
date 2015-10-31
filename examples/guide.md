@@ -19,7 +19,7 @@ After installing you'll have a `guidedown` executable you can pass Markdown file
     end
     ```
 
-Or you can pipe strings to it, if that's your thing:
+You can pipe strings to it, if that's your thing:
 
     $ cat examples/code_block.md | bin/guidedown
     This is a paragraph.
@@ -27,6 +27,38 @@ Or you can pipe strings to it, if that's your thing:
     ```
     def foo
       puts 'bar'
+    end
+    ```
+
+There are some command line options you can pass, like `--no-filenames`, which removes file names from code blocks:
+
+    $ bin/guidedown examples/code_block_replacement.md --no-filenames
+    ``` ruby
+    class Foo
+      def foo
+        puts 'bar'
+      end
+    end
+    ```
+
+Lastly, you can call use `Guidedown` straight from Ruby, if you want to use it in a Rake task, for example:
+
+    # examples/guidedown_from_ruby.rb
+    require_relative '../guidedown'
+
+    puts Guidedown.new(
+      File.read('examples/code_block_replacement.md'),
+      html_code_blocks: true
+    ).to_s
+
+Which would produce the same result as before:
+
+    $ ruby examples/guidedown_from_ruby.rb
+    ``` ruby
+    class Foo
+      def foo
+        puts 'bar'
+      end
     end
     ```
 

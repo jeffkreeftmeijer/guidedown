@@ -41,7 +41,7 @@ There are some command line options you can pass, like `--no-filenames`, which r
     end
     ```
 
-Lastly, you can call use `Guidedown` straight from Ruby, if you want to use it in a Rake task, for example:
+Lastly, you can use `Guidedown` straight from Ruby:
 
     # examples/guidedown_from_ruby.rb
     require_relative '../guidedown'

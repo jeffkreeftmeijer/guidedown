@@ -22,7 +22,7 @@ describe "Guidedown's command line interface" do
   end
 
   it "sets the code block's info string using the comment line" do
-    assert_equal "``` ruby\ndef foo\n  puts 'bar'\nend\n```\n",
+    assert_equal "``` ruby\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n",
       `bin/guidedown examples/syntax_highlighting_comment.md`
   end
 
@@ -37,7 +37,7 @@ describe "Guidedown's command line interface" do
   end
 
   it "replaces code blocks with line ranges from actual files" do
-    assert_equal "``` ruby\n# examples/example.rb:1-2\nclass Foo\n  def foo\n```\n",
+    assert_equal "``` ruby\n# examples/example.rb:2-4\n  def foo\n    puts 'bar'\n  end\n```\n",
       `bin/guidedown examples/code_block_replacement_line_range.md`
   end
 

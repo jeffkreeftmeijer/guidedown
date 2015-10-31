@@ -1,4 +1,6 @@
     # examples/example.rb
-    def foo
-      puts 'bar'
+    class Foo
+      def foo
+        puts 'bar'
+      end
     end

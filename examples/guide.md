@@ -196,7 +196,7 @@ Alternatively, you can use ellipses to omit parts of an included file. Given a f
         class Foo
           ...
         end
-        
+
 Guidedown will use the pattern from the code block to find out which lines to include and which to omit:
 
     $ bin/guidedown examples/code_block_replacement_ellipsis.md

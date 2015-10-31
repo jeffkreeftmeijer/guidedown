@@ -1,2 +1,2 @@
 require 'minitest/autorun'
-require_relative '../guidedown'
+require_relative '../lib/guidedown'

@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative '../guidedown'
+require_relative '../lib/guidedown'
 
 require 'optparse'
 

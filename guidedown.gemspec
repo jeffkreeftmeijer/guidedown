@@ -12,4 +12,6 @@ Gem::Specification.new do |s|
   s.executables = ["guidedown"]
   s.homepage    = 'https://github.com/jeffkreeftmeijer/guidedown'
   s.license     = 'MIT'
+
+  s.add_runtime_dependency 'github-linguist', '~> 4.7.0'
 end

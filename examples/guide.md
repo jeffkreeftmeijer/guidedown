@@ -60,8 +60,10 @@ When passing a filename as a comment in the first line of a code block, Guidedow
 
     # examples/syntax_highlighting.md
         # example.rb
-        def foo
-          puts 'bar'
+        class Foo
+          def foo
+            puts 'bar'
+          end
         end
 
 Guidedown will use the filename and the file's contents to find out that this is an Ruby file and set the language identifier accordingly:
@@ -69,8 +71,10 @@ Guidedown will use the filename and the file's contents to find out that this is
     $ bin/guidedown examples/syntax_highlighting.md
     ``` ruby
     # example.rb
-    def foo
-      puts 'bar'
+    class Foo
+      def foo
+        puts 'bar'
+      end
     end
     ```
 
@@ -78,17 +82,21 @@ If your code block doesn't have a file, you can use the comment line to set the 
 
     # examples/syntax_highlighting_comment.md
         # ruby
-        def foo
-          puts 'bar'
+        class Foo
+          def foo
+            puts 'bar'
+          end
         end
 
 Guidedown will use the comment line as the language identifier in the resulting code block:
 
     $ bin/guidedown examples/syntax_highlighting_comment.md
     ``` ruby
-    # example.rb
-    def foo
-      puts 'bar'
+    # ruby
+    class Foo
+      def foo
+        puts 'bar'
+      end
     end
     ```
 
@@ -98,7 +106,7 @@ When specitying a filename for a code block, Guidedown will try to find the file
 
     # examples/code_block_replacement.md
         # examples/example.rb
-        def foo
+        class Foo
           # TODO: replace this with the actual contents from `examples/example.rb`.
         end
 
@@ -106,8 +114,8 @@ Guidedown will replace everything in the code block with the actual contents fro
 
     $ bin/guidedown examples/code_block_replacement.md
     ``` ruby
-    # example.rb
-    def foo
+    # examples/example.rb
+    class Foo
       puts 'bar'
     end
     ```
@@ -117,31 +125,33 @@ Guidedown will replace everything in the code block with the actual contents fro
 If you only want to show part of a file, you can truncate the code block by passing the range of lines you want to include. Given a file named `examples/code_block_replacement_line_range.md` with the following contents:
 
     $ bin/guidedown examples/code_block_replacement_line_range.md
-        # examples/example.rb:1-2
+        # examples/example.rb:2-4
         def foo
-          # TODO: replace this with the actual line from `examples/example.rb:1-2`.
+          # TODO: replace this with the actual line from `examples/example.rb:2-4`.
     .md
+        end
     
 Guidedown will replace the code block with the range of lines specified:
     
     $ bin/guidedown examples/code_block_replacement_line_range.md
     ``` ruby
-    # examples/example.rb:1-2
+    # examples/example.rb:2-4
     def foo
       puts 'bar'
+    end
     ```
     
 Single lines work too. Given a file named `examples/code_block_replacement_single_line.md` with the following contents:
 
     # examples/code_block_replacement_single_line.md
-        # examples/example.rb:2
-        # TODO: replace this with the actual line from `examples/example.rb:2`.
+        # examples/example.rb:3
+        # TODO: replace this with the actual line from `examples/example.rb:3`.
         
 Guidedown will replace the code block with the line specified:
 
     $ bin/guidedown examples/code_block_replacement_single_line.md
     ``` ruby
-    # examples/example.rb:2
+    # examples/example.rb:3
       puts 'bar'
     ```
     
@@ -151,7 +161,7 @@ Alternatively, you can use ellipses to omit parts of an included file. Given a f
 
     # examples/code_block_replacement_ellipsis.md
         # examples/example.rb
-        def foo
+        class Foo
           ...
         end
         
@@ -160,7 +170,7 @@ Guidedown will use the pattern from the code block to find out which lines to in
     $ bin/guidedown examples/code_block_replacement_ellipsis.md
     ``` ruby
     # examples/example.rb
-    def foo
+    class Foo
       ...
     end
     ```
@@ -170,10 +180,10 @@ Guidedown will use the pattern from the code block to find out which lines to in
 Guidedown can run console commands and put the output in the guide. Given a file named `examples/code_block_replacement_console_output.md` with the following contents:
 
     # examples/code_block_replacement_console_output.md
-        $ echo "foo"
+        $ echo 'foo'
         bar?
 
-Guidedown will run the command (`$ echo "foo"`), and replace the rest of the code block with its output:
+Guidedown will run the command (`$ echo 'foo'`), and replace the rest of the code block with its output:
 
     $ bin/guidedown examples/code_block_replacement_console_output.md
     ``` console
@@ -184,7 +194,7 @@ Guidedown will run the command (`$ echo "foo"`), and replace the rest of the cod
 If you want to include the command's results in your code block, but not the command, you can use `# $`. Given a file named `examples/code_block_replacement_console_output_hidden_command.md` with the following contents:
 
     # examples/code_block_replacement_console_output_hidden_command.md
-        # $ echo "foo"
+        # $ echo 'foo'
         bar?
 
 Guidedown will run the command like before, but won't put the command line in the resulting output:

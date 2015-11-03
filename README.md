@@ -169,6 +169,26 @@ end
 ```
 </code></pre>
     
+#### Specifying file revisions
+
+You can specify a git revision by appending an `@`-sign followed by a commit hash to to the filename. Given a file named `examples/code_block_replacement_revision.md`, with these contents:
+
+<pre><code>    # examples/example.rb @ 64430d
+    def foo
+      # TODO: replace this with the actual contents from `examples/example.rb` in revision 64430d
+    end
+</code></pre>
+Guidedown will find the file in the specified git revision (using `git show 64430d:examples/example.rb`) and use its contents in the code block:
+
+<pre><code>$ bin/guidedown examples/code_block_replacement_revision.md
+``` ruby
+# examples/example.rb
+def foo
+  puts 'bar'
+end
+```
+</code></pre>
+
 #### Truncating file contents
 
 If you only want to show part of a file, you can truncate the code block by passing the range of lines you want to include. Given a file named `examples/code_block_replacement_line_range.md` with the following contents:

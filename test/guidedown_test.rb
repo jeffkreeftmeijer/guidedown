@@ -49,6 +49,28 @@ describe Guidedown do
       Guidedown.new("    # examples/example.rb\n    class Foo\n      ...\n    end\n").to_s
   end
 
+  describe "with a specific revision of a file" do
+    it "replaces code blocks with actual file contents" do
+      assert_equal "``` ruby\n# examples/example.rb\ndef foo\n  puts 'bar'\nend\n```\n",
+        Guidedown.new("    # examples/example.rb @ 64430d\n    def foo\n      # TODO: replace this...\n    end\n").to_s
+    end
+
+    it "takes a single line from the file" do
+      assert_equal "``` ruby\n# examples/example.rb:2\n  puts 'bar'\n```\n",
+        Guidedown.new("    # examples/example.rb:2 @ 64430d\n      # TODO: replace this...\n").to_s
+    end
+
+    it "takes a line range from the file" do
+      assert_equal "``` ruby\n# examples/example.rb:1-2\ndef foo\n  puts 'bar'\n```\n",
+        Guidedown.new("    # examples/example.rb:1-2 @ 64430d\n    class Foo\n      def foo\n").to_s
+    end
+
+    it "replaces code blocks with file contents with ommitted parts" do
+      assert_equal "``` ruby\n# examples/example.rb\ndef foo\n  ...\nend\n```\n",
+        Guidedown.new("    # examples/example.rb @ 64430d\n    class Foo\n      ...\n    end\n").to_s
+    end
+  end
+
   it "replaces code blocks with command line output" do
     assert_equal "``` console\n$ echo foo\nfoo\n```\n",
       Guidedown.new("    $ echo foo\n    bar?\n").to_s

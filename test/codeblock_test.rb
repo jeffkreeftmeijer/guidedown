@@ -30,6 +30,11 @@ describe Guidedown::Codeblock do
       assert_equal 'console',
         Guidedown::Codeblock.new('    # $ echo foo').info_string
     end
+
+    it "uses its language name as the info string for a revision when the file doesn't currently exist" do
+      assert_equal 'ruby',
+        Guidedown::Codeblock.new('    # examples/does_not_exist.rb @ abc123').info_string
+    end
   end
 
   describe "comments" do
@@ -40,6 +45,11 @@ describe Guidedown::Codeblock do
     it "has a comment line for a filename" do
       assert_equal "# examples/example.rb",
         Guidedown::Codeblock.new('    # examples/example.rb').comment
+    end
+
+    it "removes the revision from the filename" do
+      assert_equal "# examples/example.rb",
+        Guidedown::Codeblock.new('    # examples/example.rb @ 64430d').comment
     end
 
     it "does not have a comment line for an info string" do
@@ -86,6 +96,13 @@ describe Guidedown::Codeblock do
       it "uses a line range from a file as data" do
         assert_equal "class Foo\n  def foo\n",
           Guidedown::Codeblock.new('    # examples/example.rb:1-2').contents
+      end
+
+      describe "in a specific revision" do
+        it "uses file contents" do
+          assert_equal "def foo\n  puts 'bar'\nend\n",
+            Guidedown::Codeblock.new('    # examples/example.rb @ 64430d').contents
+        end
       end
     end
 
@@ -150,7 +167,7 @@ describe Guidedown::Codeblock do
 
   describe Guidedown::Codeblock::CommentLine do
     before do
-      @comment_line = Guidedown::Codeblock::CommentLine.new("# examples/example.rb:1-2".match(/# .+/))
+      @comment_line = Guidedown::Codeblock::CommentLine.new("# examples/example.rb:1-2 @ 704e4e".match(/# .+/))
     end
 
     it "returns the comment line" do
@@ -163,6 +180,10 @@ describe Guidedown::Codeblock do
 
     it "has a filename" do
       assert_equal "examples/example.rb", @comment_line.filename
+    end
+
+    it "has a revision" do
+      assert_equal '704e4e', @comment_line.revision
     end
 
     it "has a line number range" do

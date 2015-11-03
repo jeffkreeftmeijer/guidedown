@@ -43,7 +43,7 @@ class Guidedown
     end
 
     def name
-      split_comment_line_contents.first || ''
+      comment_line ? comment_line.filename : ''
     end
 
     def language_name
@@ -56,7 +56,11 @@ class Guidedown
     end
 
     def info_string
-      file || command_line ? language_name : comment_line_contents
+      if file || command_line
+        language_name
+      else
+        comment_line.contents if comment_line
+      end
     end
 
     def comment
@@ -70,7 +74,8 @@ class Guidedown
     def contents
       data = case
       when file
-        Formatter.new(data_without_comments_or_commands).format(file.lines[line_numbers].join)
+        formatter = Formatter.new(data_without_comments_or_commands)
+        formatter.format(file.lines[comment_line.line_number_range].join)
       when executable_command
         data_without_comments_or_commands.empty? ? '' : `#{executable_command}`
       else
@@ -85,20 +90,8 @@ class Guidedown
     end
 
     def comment_line
-      lines.first.match(/# (.+)/) unless hidden_command?
-    end
-
-    def comment_line_contents
-      if comment_line
-        comment_line.to_s.sub(/^# /, '')
-      end
-    end
-
-    def split_comment_line_contents
-      if comment_line_contents
-        comment_line_contents.split(':')
-      else
-        []
+      if !hidden_command? && match = lines.first.match(/# (.+)/)
+        CommentLine.new(match)
       end
     end
 
@@ -124,19 +117,44 @@ class Guidedown
       File.read(name) if File.exists?(name)
     end
 
-    def line_numbers?
-      split_comment_line_contents.length > 1
-    end
+    class CommentLine
+      def initialize(line)
+        @line = line
+      end
 
-    def split_line_numbers
-      split_comment_line_contents.last.split('-')
-    end
+      def contents
+        to_s.sub(/^# /, '')
+      end
 
-    def line_numbers
-      if line_numbers?
-        (split_line_numbers.first.to_i - 1)..(split_line_numbers.last.to_i - 1)
-      else
-        0..-1
+      def to_s
+        @line.to_s
+      end
+
+      def filename
+        split_contents.first
+      end
+
+      def line_number_range
+        if line_numbers
+          split_line_numbers = line_numbers.split('-')
+          (split_line_numbers.first.to_i - 1)..(split_line_numbers.last.to_i - 1)
+        else
+          0..-1
+        end
+      end
+
+      private
+
+      def line_numbers?
+        split_contents.length > 1
+      end
+
+      def line_numbers
+        split_contents.last if line_numbers?
+      end
+
+      def split_contents
+        contents.split(':')
       end
     end
   end

@@ -147,4 +147,36 @@ describe Guidedown::Codeblock do
       assert_equal "```ruby\n# examples/example.rb\nclass Foo\n  def foo\n    puts 'bar'\n  end\nend\n```\n", codeblock.to_s
     end
   end
+
+  describe Guidedown::Codeblock::CommentLine do
+    before do
+      @comment_line = Guidedown::Codeblock::CommentLine.new("# examples/example.rb:1-2".match(/# .+/))
+    end
+
+    it "returns the comment line" do
+      assert_equal "# examples/example.rb:1-2", @comment_line.to_s
+    end
+
+    it "has contents" do
+      assert_equal "examples/example.rb:1-2", @comment_line.contents
+    end
+
+    it "has a filename" do
+      assert_equal "examples/example.rb", @comment_line.filename
+    end
+
+    it "has a line number range" do
+      assert_equal 0..1, @comment_line.line_number_range
+    end
+
+    describe "without line numbers" do
+      before do
+        @comment_line = Guidedown::Codeblock::CommentLine.new("# examples/example.rb".match(/# .+/))
+      end
+
+      it "has a line number range" do
+        assert_equal 0..-1, @comment_line.line_number_range
+      end
+    end
+  end
 end

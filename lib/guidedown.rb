@@ -118,8 +118,11 @@ class Guidedown
     end
 
     class CommentLine
+      attr_reader :filename
+
       def initialize(line)
         @line = line
+        @filename, @line_numbers = contents.split(':')
       end
 
       def contents
@@ -130,31 +133,13 @@ class Guidedown
         @line.to_s
       end
 
-      def filename
-        split_contents.first
-      end
-
       def line_number_range
-        if line_numbers
-          split_line_numbers = line_numbers.split('-')
+        if @line_numbers
+          split_line_numbers = @line_numbers.split('-')
           (split_line_numbers.first.to_i - 1)..(split_line_numbers.last.to_i - 1)
         else
           0..-1
         end
-      end
-
-      private
-
-      def line_numbers?
-        split_contents.length > 1
-      end
-
-      def line_numbers
-        split_contents.last if line_numbers?
-      end
-
-      def split_contents
-        contents.split(':')
       end
     end
   end

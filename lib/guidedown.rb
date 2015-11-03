@@ -56,7 +56,7 @@ class Guidedown
     end
 
     def info_string
-      if file || command_line
+      if file || command_line || revision
         language_name
       else
         comment_line.contents if comment_line
@@ -73,6 +73,10 @@ class Guidedown
 
     def contents
       data = case
+      when revision
+        formatter = Formatter.new(data_without_comments_or_commands)
+        contents = `git show #{revision}:#{name}`
+        formatter.format(contents.lines[comment_line.line_number_range].join)
       when file
         formatter = Formatter.new(data_without_comments_or_commands)
         formatter.format(file.lines[comment_line.line_number_range].join)
@@ -115,6 +119,10 @@ class Guidedown
 
     def file
       File.read(name) if File.exists?(name)
+    end
+
+    def revision
+      comment_line.revision if comment_line
     end
 
     class CommentLine

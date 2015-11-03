@@ -42,6 +42,11 @@ describe Guidedown::Codeblock do
         Guidedown::Codeblock.new('    # examples/example.rb').comment
     end
 
+    it "removes the revision from the filename" do
+      assert_equal "# examples/example.rb",
+        Guidedown::Codeblock.new('    # examples/example.rb @ 64430d').comment
+    end
+
     it "does not have a comment line for an info string" do
       assert_nil Guidedown::Codeblock.new('    # elixir').comment
     end
@@ -154,11 +159,11 @@ describe Guidedown::Codeblock do
     end
 
     it "returns the comment line" do
-      assert_equal "# examples/example.rb:1-2 @ 704e4e", @comment_line.to_s
+      assert_equal "# examples/example.rb:1-2", @comment_line.to_s
     end
 
     it "has contents" do
-      assert_equal "examples/example.rb:1-2 @ 704e4e", @comment_line.contents
+      assert_equal "examples/example.rb:1-2", @comment_line.contents
     end
 
     it "has a filename" do

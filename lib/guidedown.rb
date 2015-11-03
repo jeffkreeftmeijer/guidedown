@@ -120,9 +120,9 @@ class Guidedown
     class CommentLine
       attr_reader :filename
 
-      def initialize(line)
-        @line = line
-        @filename, @line_numbers = contents.split(':')
+      def initialize(match)
+        @line = match.to_s
+        @filename, @line_numbers = @line.match(/^# ([^:]+):?(.+)?/).captures
       end
 
       def contents
@@ -130,7 +130,7 @@ class Guidedown
       end
 
       def to_s
-        @line.to_s
+        @line
       end
 
       def line_number_range

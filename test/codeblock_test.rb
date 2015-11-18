@@ -214,6 +214,10 @@ describe Guidedown::Codeblock do
       it "has a command type" do
         assert_equal :command, @comment_line.type
       end
+
+      it "returns the comment line" do
+        assert_equal "$ cat examples/example.rb", @comment_line.to_s
+      end
     end
   end
 end

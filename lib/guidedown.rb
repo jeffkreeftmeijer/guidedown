@@ -128,10 +128,16 @@ class Guidedown
     class CommentLine
       attr_reader :filename, :revision
 
+      PATTERNS = {
+        filename: /# ([^: ]+):?([0-9-]+)?(?: \@ )?(.+)?/,
+        command: /\$ (.+)/,
+      }
+
       def initialize(match)
         @line = match.to_s
+
         @filename, @line_numbers, @revision =
-          @line.match(/(?:#|\$) ([^: ]+):?([0-9-]+)?(?: \@ )?(.+)?/).captures
+          @line.match(PATTERNS[type]).captures
       end
 
       def type

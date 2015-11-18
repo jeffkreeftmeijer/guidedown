@@ -218,6 +218,10 @@ describe Guidedown::Codeblock do
       it "returns the comment line" do
         assert_equal "$ cat examples/example.rb", @comment_line.to_s
       end
+
+      it "has contents" do
+        assert_equal "cat examples/example.rb", @comment_line.contents
+      end
     end
   end
 end

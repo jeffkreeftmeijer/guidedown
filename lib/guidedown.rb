@@ -150,7 +150,7 @@ class Guidedown
       end
 
       def contents
-        to_s.sub(/^# /, '')
+        to_s.sub(/^(#|\$) /, '')
       end
 
       def to_s

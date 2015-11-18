@@ -217,5 +217,15 @@ describe Guidedown::Codeblock do
     it "has a revision" do
       assert_equal '704e4e', @comment_line.revision
     end
+
+    describe "with a hidden command" do
+      before do
+        @comment_line = Guidedown::Codeblock::CommandLine.new("# $ cat examples/example.rb @ 704e4e".match(/# \$ .+/))
+      end
+
+      it "has a command" do
+        assert_equal "cat examples/example.rb", @comment_line.command
+      end
+    end
   end
 end

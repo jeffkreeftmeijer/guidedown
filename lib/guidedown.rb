@@ -163,7 +163,7 @@ class Guidedown
       end
 
       def command
-        to_s.sub(/^\$ /, '')
+        to_s.sub(/^(# )?\$ /, '')
       end
 
       def to_s

@@ -134,6 +134,10 @@ class Guidedown
           @line.match(/# ([^: ]+):?([0-9-]+)?(?: \@ )?(.+)?/).captures
       end
 
+      def type
+        :filename
+      end
+
       def contents
         to_s.sub(/^# /, '')
       end

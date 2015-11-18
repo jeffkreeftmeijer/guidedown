@@ -170,6 +170,10 @@ describe Guidedown::Codeblock do
       @comment_line = Guidedown::Codeblock::CommentLine.new("# examples/example.rb:1-2 @ 704e4e".match(/# .+/))
     end
 
+    it "has a filename type" do
+      assert_equal :filename, @comment_line.type
+    end
+
     it "returns the comment line" do
       assert_equal "# examples/example.rb:1-2", @comment_line.to_s
     end

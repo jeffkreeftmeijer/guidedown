@@ -131,11 +131,16 @@ class Guidedown
       def initialize(match)
         @line = match.to_s
         @filename, @line_numbers, @revision =
-          @line.match(/# ([^: ]+):?([0-9-]+)?(?: \@ )?(.+)?/).captures
+          @line.match(/(?:#|\$) ([^: ]+):?([0-9-]+)?(?: \@ )?(.+)?/).captures
       end
 
       def type
-        :filename
+        case @line
+        when /^\$/
+          :command
+        when /^#/
+          :filename
+        end
       end
 
       def contents

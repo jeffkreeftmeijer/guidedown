@@ -166,41 +166,53 @@ describe Guidedown::Codeblock do
   end
 
   describe Guidedown::Codeblock::CommentLine do
-    before do
-      @comment_line = Guidedown::Codeblock::CommentLine.new("# examples/example.rb:1-2 @ 704e4e".match(/# .+/))
-    end
-
-    it "has a filename type" do
-      assert_equal :filename, @comment_line.type
-    end
-
-    it "returns the comment line" do
-      assert_equal "# examples/example.rb:1-2", @comment_line.to_s
-    end
-
-    it "has contents" do
-      assert_equal "examples/example.rb:1-2", @comment_line.contents
-    end
-
-    it "has a filename" do
-      assert_equal "examples/example.rb", @comment_line.filename
-    end
-
-    it "has a revision" do
-      assert_equal '704e4e', @comment_line.revision
-    end
-
-    it "has a line number range" do
-      assert_equal 0..1, @comment_line.line_number_range
-    end
-
-    describe "without line numbers" do
+    describe "concerning filename comment lines" do
       before do
-        @comment_line = Guidedown::Codeblock::CommentLine.new("# examples/example.rb".match(/# .+/))
+        @comment_line = Guidedown::Codeblock::CommentLine.new("# examples/example.rb:1-2 @ 704e4e".match(/# .+/))
+      end
+
+      it "has a filename type" do
+        assert_equal :filename, @comment_line.type
+      end
+
+      it "returns the comment line" do
+        assert_equal "# examples/example.rb:1-2", @comment_line.to_s
+      end
+
+      it "has contents" do
+        assert_equal "examples/example.rb:1-2", @comment_line.contents
+      end
+
+      it "has a filename" do
+        assert_equal "examples/example.rb", @comment_line.filename
+      end
+
+      it "has a revision" do
+        assert_equal '704e4e', @comment_line.revision
       end
 
       it "has a line number range" do
-        assert_equal 0..-1, @comment_line.line_number_range
+        assert_equal 0..1, @comment_line.line_number_range
+      end
+
+      describe "without line numbers" do
+        before do
+          @comment_line = Guidedown::Codeblock::CommentLine.new("# examples/example.rb".match(/# .+/))
+        end
+
+        it "has a line number range" do
+          assert_equal 0..-1, @comment_line.line_number_range
+        end
+      end
+    end
+
+    describe "concerning command comment lines" do
+      before do
+        @comment_line = Guidedown::Codeblock::CommentLine.new("$ cat examples/example.rb @ 704e4e".match(/\$ .+/))
+      end
+
+      it "has a command type" do
+        assert_equal :command, @comment_line.type
       end
     end
   end

@@ -104,7 +104,9 @@ class Guidedown
     end
 
     def command_line
-      lines.first.match(/(# )?\$ (.+)/)
+      if match = lines.first.match(/(# )?\$ (.+)/)
+        CommandLine.new(match)
+      end
     end
 
     def executable_command
@@ -149,6 +151,23 @@ class Guidedown
         else
           0..-1
         end
+      end
+    end
+
+    class CommandLine
+      attr_reader :command, :revision
+
+      def initialize(match)
+        @line = match.to_s
+        @command, @revision = @line.split(' @ ')
+      end
+
+      def command
+        to_s.sub(/^\$ /, '')
+      end
+
+      def to_s
+        @line.sub(/ @(.+)$/, '')
       end
     end
   end

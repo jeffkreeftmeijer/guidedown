@@ -200,4 +200,22 @@ describe Guidedown::Codeblock do
       end
     end
   end
+
+  describe Guidedown::Codeblock::CommandLine do
+    before do
+      @comment_line = Guidedown::Codeblock::CommandLine.new("$ cat examples/example.rb @ 704e4e".match(/\$ .+/))
+    end
+
+    it "returns the command line" do
+      assert_equal "$ cat examples/example.rb", @comment_line.to_s
+    end
+
+    it "has a command" do
+      assert_equal "cat examples/example.rb", @comment_line.command
+    end
+
+    it "has a revision" do
+      assert_equal '704e4e', @comment_line.revision
+    end
+  end
 end

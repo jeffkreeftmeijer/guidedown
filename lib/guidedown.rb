@@ -115,12 +115,6 @@ class Guidedown
       end
     end
 
-    def executable_command
-      if command_line
-        command_line.to_s.sub(/^(# )?\$ /, '')
-      end
-    end
-
     def hidden_command?
       command_line.to_s.match(/^# \$/)
     end

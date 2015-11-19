@@ -76,12 +76,12 @@ class Guidedown
       when command_line
         data_without_comments_or_commands.empty? ? '' : `#{command_line.command}`
       when comment_line && comment_line.revision || file
+        formatter = Formatter.new(data_without_comments_or_commands)
+
         if comment_line.revision
-          formatter = Formatter.new(data_without_comments_or_commands)
           contents = `git show #{revision}:#{name}`
           formatter.format(contents.lines[comment_line.line_number_range].join)
         else
-          formatter = Formatter.new(data_without_comments_or_commands)
           formatter.format(file.lines[comment_line.line_number_range].join)
         end
       else

@@ -68,7 +68,7 @@ class Guidedown
     end
 
     def command
-      command_line.to_s if command_line && !hidden_command?
+      command_line.to_s if command_line && !command_line.hidden?
     end
 
     def contents
@@ -113,10 +113,6 @@ class Guidedown
       if match = lines.first.match(/(# )?\$ (.+)/)
         CommandLine.new(match)
       end
-    end
-
-    def hidden_command?
-      command_line.to_s.match(/^# \$/)
     end
 
     def file
@@ -168,6 +164,10 @@ class Guidedown
 
       def to_s
         @line.sub(/ @(.+)$/, '')
+      end
+
+      def hidden?
+        to_s.match(/^#/)
       end
     end
   end

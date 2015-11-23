@@ -128,12 +128,16 @@ class Guidedown
 
       def initialize(match)
         @line = match.to_s
-        @filename, @line_numbers, @revision =
-          @line.match(/# ([^: ]+):?([0-9-]+)?(?: \@ )?(.+)?/).captures
+        @filename_with_line_numbers, @revision = @line.split(' @ ')
+        @filename, @line_numbers = @filename_with_line_numbers.split(':')
       end
 
       def contents
         to_s.sub(/^# /, '')
+      end
+
+      def filename
+        @filename.sub(/^# /, '')
       end
 
       def to_s

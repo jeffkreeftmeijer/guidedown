@@ -66,6 +66,11 @@ describe Guidedown do
       Guidedown.new("    $ echo foo\n    bar?\n").to_s
   end
 
+  it "replaces code blocks with command line output in a specific revision" do
+    assert_equal "``` console\n$ ls\nexample.rb\n```\n",
+      Guidedown.new("    $ ls @ 106bbc\n    example.ex\n").to_s
+  end
+
   it "replaces code blocks with command line output with a hidden command" do
     assert_equal "``` console\nfoo\n```\n",
       Guidedown.new("    # $ echo foo\n    bar?\n").to_s

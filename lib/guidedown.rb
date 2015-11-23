@@ -1,4 +1,5 @@
 require 'linguist'
+require 'git_run'
 
 class Guidedown
   def initialize(input, options = {})
@@ -73,8 +74,6 @@ class Guidedown
 
     def contents
       data = case
-      when command_line
-        data_without_comments_or_commands.empty? ? '' : `#{command_line.command}`
       when comment_line && comment_line.revision || file
         formatter = Formatter.new(data_without_comments_or_commands)
 
@@ -83,6 +82,13 @@ class Guidedown
           formatter.format(contents.lines[comment_line.line_number_range].join)
         else
           formatter.format(file.lines[comment_line.line_number_range].join)
+        end
+      when command_line
+        return '' if data_without_comments_or_commands.empty?
+        if revision = command_line.revision
+          GitRun.run(revision, command_line.command)
+        else
+          `#{command_line.command}`
         end
       else
         data_without_comments_or_commands.gsub(/^ {4}/, '')

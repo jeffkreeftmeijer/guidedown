@@ -121,6 +121,13 @@ describe Guidedown::Codeblock do
         codeblock = Guidedown::Codeblock.new("    $ echo foo")
         assert_equal '', codeblock.contents
       end
+
+      describe "in a specific revision" do
+        it "runs console commands" do
+          assert_equal "example.rb\n",
+            Guidedown::Codeblock.new("    $ ls @ 106bbc\n    example.ex").contents
+        end
+      end
     end
   end
 

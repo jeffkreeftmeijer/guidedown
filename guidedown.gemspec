@@ -14,4 +14,5 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.add_runtime_dependency 'github-linguist', '~> 4.7.0'
+  s.add_runtime_dependency 'git-run', '~> 0.0.0'
 end
